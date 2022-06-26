@@ -1,0 +1,181 @@
+site_name: w/vi
+site_url: https://hack8s.withvi.com
+# repo_url: https://github.com/withvi/hack8s
+# repo_name: withvi/hack8s
+site_description: Hack and Secure Kubernetes with Vĩ
+site_author: Nhâm Chấn Vĩ
+copyright: >
+  Copyright &copy; 2022 Nhâm Chấn Vĩ
+nav:
+  - Hack:
+    - Kubernetes:
+      - Pentesting Kubernetes Services: content/en/docs/kubernetes/pentesting-kubernetes-services.md
+      - Exposing Services in Kubernetes: content/en/docs/kubernetes/exposing-services-in-kubernetes.md
+      - Attacking Kubernetes from inside a Pod: content/en/docs/kubernetes/attacking-kubernetes-from-inside-a-pod.md
+      - Kubernetes Enumeration: content/en/docs/kubernetes/kubernetes-enumeration.md
+      - Kubernetes Role-Based Access Control (RBAC): content/en/docs/kubernetes/kubernetes-role-based-access-control.md
+      - Abusing Roles/ClusterRoles in Kubernetes: content/en/docs/kubernetes/abusing-roles-clusterroles-in-kubernetes.md
+      - Kubernetes Namespace Escalation: content/en/docs/kubernetes/kubernetes-namespace-escalation.md
+      - Kubernetes Access to other Clouds: content/en/docs/kubernetes/kubernetes-access-to-other-clouds.md
+      - Kubernetes Network Attacks: content/en/docs/kubernetes/kubernetes-network-attacks.md
+    - Linux:
+      - Checklist - Linux Privilege Escalation: content/en/docs/linux/checklist-linux-privilege-escalation.md
+      - Linux Privilege Escalation:
+        - Docker Basics & Breakout:
+          - AuthZ & AuthN - Docker Access Authorization Plugin: content/en/docs/linux/docker/authz-authn-docker-access-authorization-plugin.md
+          - Docker Breakout / Privilege Escalation:
+            - release_agent exploit - Relative Paths to PIDs: content/en/docs/linux/docker/release_agent-exploit-relative-paths-to-pids.md
+            - Docker release_agent cgroups escape: content/en/docs/linux/docker/docker-release_agent-cgroups-escape.md
+            - Sensitive Mounts: content/en/docs/linux/docker/sensitive-mounts.md
+          - Seccomp: content/en/docs/linux/docker/seccomp.md
+          - AppArmor: content/en/docs/linux/docker/apparmor.md
+          - Namespaces: content/en/docs/linux/docker/namespaces.md
+          - Docker --privileged: content/en/docs/linux/docker/docker--privileged.md
+          - Abusing Docker Socket for Privilege Escalation: content/en/docs/linux/docker/abusing-docker-socket-for-privilege-escalation.md
+        - Linux Capabilities: content/en/docs/linux/linux-capabilities.md
+      - Useful Linux Commands: content/en/docs/linux/useful-linux-commands.md
+      - Bypass Linux Shell Restrictions:
+        - DDexec: content/en/docs/linux/ddexec.md
+      - Linux Environment Variables: content/en/docs/linux/linux-environment-variables.md
+    - Network Services Pentesting:
+      - 44134 Pentesting Tiller (Helm): content/en/docs/pentesting/network/44134-pentesting-tiller-helm.md
+  - Secure:
+    - Kubernetes: content/en/docs/kubernetes/kubernetes-hardening.md
+    - Github: content/en/docs/cloud/github/basic-github-information.md
+    - CircleCI: content/en/docs/cloud/circleci/circleci.md
+    - Jenkins: content/en/docs/cloud/jenkins/jenkins.md
+    - AWS: content/en/docs/cloud/aws/aws.md
+  - DevOps:
+    - Kubernetes Basics: content/en/docs/kubernetes/kubernetes-basics.md
+    - Istio: 
+      - Monoliths vs Microservices: content/en/docs/service-mesh/istio/concepts/istio_monoliths_and_microservices.md
+      - Basic Service Mesh: content/en/docs/service-mesh/istio/concepts/istio_basic_service_mesh.md
+  # - Welcome:
+  #   - Welcome: index.md
+  #   - About the author: content/en/docs/welcome/about-the-author.md
+  #   - Getting Started in Hacking: content/en/docs/welcome/getting-started-in-hacking.md
+
+theme:
+  name: material
+  custom_dir: overrides
+  logo: images/logo.png
+  favicon: images/favicon.ico
+  icon:
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+  features:
+      - search.suggest
+      - search.highlight
+      - search.share
+      - navigation.instant
+      - navigation.tracking
+      - navigation.tabs
+      # - navigation.tabs.sticky
+      - navigation.sections
+      # - navigation.expand
+      - navigation.indexes
+      - toc.integrate
+      - navigation.top
+      - content.code.annotate
+      - content.tabs.link
+  palette:
+    - scheme: default
+      media: "(prefers-color-scheme: light)"
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+      primary: deep purple
+      accent: purple
+    - scheme: slate
+      media: "(prefers-color-scheme: dark)"
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+      primary: deep purple
+      accent: purple
+
+  # # 404 page
+  # static_templates:
+  #   - 404.html
+
+markdown_extensions:
+  - meta
+  - toc:
+      permalink: True
+  - abbr
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - tables
+  - footnotes
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - md_in_html
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.smartsymbols
+plugins:
+  - search
+  - tags:
+      tags_file: tags.md
+extra:
+  version:
+    provider: mike
+    default: latest
+  # social:
+  #   - icon: fontawesome/brands/twitter
+  #     link: https://twitter.com/
+  #   - icon: fontawesome/brands/linkedin
+  #     link: https://www.linkedin.com/
+  #   - icon: fontawesome/solid/paper-plane
+  #     link: mailto:<email-address>
+  # generator: false
+  # alternate:
+  #   - name: English
+  #     lang: en
+  #   - name: Vietnamese
+  #     lang: vi
+
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - javascripts/shortcuts.js
+  # - javascripts/consent.js
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - javascripts/tablesort.js
+  # - javascripts/feedback.js
