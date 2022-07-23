@@ -37,23 +37,19 @@ nav:
       - Bypass Linux Shell Restrictions:
         - DDexec: content/en/docs/linux/ddexec.md
       - Linux Environment Variables: content/en/docs/linux/linux-environment-variables.md
-    - Network Services Pentesting:
-      - 44134 Pentesting Tiller (Helm): content/en/docs/pentesting/network/44134-pentesting-tiller-helm.md
+    - Pentesting:
+      - Network Services:
+        - 44134 Pentesting Tiller (Helm): content/en/docs/pentesting/network/44134-pentesting-tiller-helm.md
   - Secure:
-    - Kubernetes: content/en/docs/kubernetes/kubernetes-hardening.md
-    - Github: content/en/docs/cloud/github/basic-github-information.md
-    - CircleCI: content/en/docs/cloud/circleci/circleci.md
-    - Jenkins: content/en/docs/cloud/jenkins/jenkins.md
-    - AWS: content/en/docs/cloud/aws/aws.md
+    - Kubernetes: /Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/secure/secure-kubernetes.md
+    - Github: /Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/secure/secure-github.md
+    - CircleCI: /Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/secure/secure-circleci.md
+    - Jenkins: /Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/secure/secure-jenkins.md
+    - AWS: /Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/secure/secure-aws.md
   - DevOps:
-    - Kubernetes Basics: content/en/docs/kubernetes/kubernetes-basics.md
-    - Istio: 
-      - Monoliths vs Microservices: content/en/docs/service-mesh/istio/concepts/istio_monoliths_and_microservices.md
-      - Basic Service Mesh: content/en/docs/service-mesh/istio/concepts/istio_basic_service_mesh.md
-  # - Welcome:
-  #   - Welcome: index.md
-  #   - About the author: content/en/docs/welcome/about-the-author.md
-  #   - Getting Started in Hacking: content/en/docs/welcome/getting-started-in-hacking.md
+    - Kubernetes: /Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/devops/devops-kubernetes.md
+    - Istio: /Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/devops/devops-istio.md
+    - Bitbucket: /Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/devops/devops-bitbucket.md
 
 theme:
   name: material
