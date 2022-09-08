@@ -2,202 +2,197 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://hack8s.withvi.com/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://hack8s.withvi.com/tags/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/cloud/aws/aws/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/bic/production_in_may2020/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/cloud/circleci/circleci/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/devops/devops-bitbucket/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/cloud/github/basic-github-information/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/devops/devops-istio/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/cloud/jenkins/jenkins/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/devops/devops-kubernetes-deployment-antipatterns/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/kubernetes/abusing-roles-clusterroles-in-kubernetes/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/devops/devops-kubernetes/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/kubernetes/attacking-kubernetes-from-inside-a-pod/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/devops/devops-tools-list/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/kubernetes/exposing-services-in-kubernetes/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/gitops/gitops-argocd/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/kubernetes/kubernetes-access-to-other-clouds/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/docker/abusing-docker-socket-for-privilege-escalation/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/kubernetes/kubernetes-basics/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/docker/apparmor/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/kubernetes/kubernetes-enumeration/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/docker/authz-authn-docker-access-authorization-plugin/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/kubernetes/kubernetes-hardening/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/docker/docker--privileged/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/kubernetes/kubernetes-namespace-escalation/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/docker/docker-release_agent-cgroups-escape/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/kubernetes/kubernetes-network-attacks/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/docker/namespaces/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/kubernetes/kubernetes-role-based-access-control/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/docker/release_agent-exploit-relative-paths-to-pids/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/kubernetes/pentesting-kubernetes-services/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/docker/seccomp/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/checklist-linux-privilege-escalation/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/docker/sensitive-mounts/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/ddexec/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/kubernetes/abusing-roles-clusterroles-in-kubernetes/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/linux-capabilities/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/kubernetes/attacking-kubernetes-from-inside-a-pod/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/linux-environment-variables/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/kubernetes/exposing-services-in-kubernetes/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/useful-linux-commands/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/kubernetes/kubernetes-access-to-other-clouds/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/docker/abusing-docker-socket-for-privilege-escalation/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/kubernetes/kubernetes-enumeration/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/docker/apparmor/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/kubernetes/kubernetes-namespace-escalation/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/docker/authz-authn-docker-access-authorization-plugin/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/kubernetes/kubernetes-network-attacks/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/docker/docker--privileged/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/kubernetes/kubernetes-role-based-access-control/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/docker/docker-release_agent-cgroups-escape/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/kubernetes/pentesting-kubernetes-services/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/docker/namespaces/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/linux/checklist-linux-privilege-escalation/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/docker/release_agent-exploit-relative-paths-to-pids/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/linux/ddexec/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/docker/seccomp/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/linux/linux-capabilities/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/linux/docker/sensitive-mounts/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/linux/linux-environment-variables/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/pentesting/network/44134-pentesting-tiller-helm/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/linux/useful-linux-commands/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/service-mesh/istio/concepts/istio_basic_service_mesh/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/hack/pentesting/network/44134-pentesting-tiller-helm/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/service-mesh/istio/concepts/istio_monoliths_and_microservices/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/secure/secure-aws/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/service-mesh/istio/references/reference-page-template/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/secure/secure-circleci/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/service-mesh/istio/tasks/task-page-template/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/secure/secure-github/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/service-mesh/istio/tutorials/tutorial-page-template/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/secure/secure-jenkins/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/welcome/about-the-author/</loc>
-         <lastmod>2022-06-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://hack8s.withvi.com/content/en/docs/welcome/getting-started-in-hacking/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <loc>https://hack8s.withvi.com/content/en/docs/secure/secure-kubernetes/</loc>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://hack8s.withvi.com/tags/</loc>
-         <lastmod>2022-06-26</lastmod>
+         <lastmod>2022-09-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

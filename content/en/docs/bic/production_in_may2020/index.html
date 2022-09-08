@@ -1,0 +1,1945 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Hack and Secure Kubernetes with Vĩ">
+      
+      
+        <meta name="author" content="Nhâm Chấn Vĩ">
+      
+      
+        <link rel="canonical" href="https://hack8s.withvi.com/content/en/docs/bic/production_in_may2020/">
+      
+      <link rel="icon" href="../../../../../images/favicon.ico">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.16">
+    
+    
+      
+        <title>Production Deployment - w/vi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.1c3799f8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#production-deployment" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../../../../../.."> 
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          
+        </aside>
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="w/vi" class="md-header__button md-logo" aria-label="w/vi" data-md-component="logo">
+      
+  <img src="../../../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            w/vi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Production Deployment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../kubernetes/pentesting-kubernetes-services.md" class="md-tabs__link">
+        Hack
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="/Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/secure/secure-kubernetes.md" class="md-tabs__link">
+        Secure
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="/Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/devops/devops-kubernetes.md" class="md-tabs__link">
+        DevOps
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="w/vi" class="md-nav__button md-logo" aria-label="w/vi" data-md-component="logo">
+      
+  <img src="../../../../../images/logo.png" alt="logo">
+
+    </a>
+    w/vi
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Hack
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Hack" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Hack
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_1">
+          Kubernetes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Kubernetes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Kubernetes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/pentesting-kubernetes-services.md" class="md-nav__link">
+        Pentesting Kubernetes Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/exposing-services-in-kubernetes.md" class="md-nav__link">
+        Exposing Services in Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/attacking-kubernetes-from-inside-a-pod.md" class="md-nav__link">
+        Attacking Kubernetes from inside a Pod
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/kubernetes-enumeration.md" class="md-nav__link">
+        Kubernetes Enumeration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/kubernetes-role-based-access-control.md" class="md-nav__link">
+        Kubernetes Role-Based Access Control (RBAC)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/abusing-roles-clusterroles-in-kubernetes.md" class="md-nav__link">
+        Abusing Roles/ClusterRoles in Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/kubernetes-namespace-escalation.md" class="md-nav__link">
+        Kubernetes Namespace Escalation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/kubernetes-access-to-other-clouds.md" class="md-nav__link">
+        Kubernetes Access to other Clouds
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/kubernetes-network-attacks.md" class="md-nav__link">
+        Kubernetes Network Attacks
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_2">
+          Linux
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linux" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/checklist-linux-privilege-escalation.md" class="md-nav__link">
+        Checklist - Linux Privilege Escalation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2_2" type="checkbox" id="__nav_1_2_2" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_2_2">
+          Linux Privilege Escalation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linux Privilege Escalation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Linux Privilege Escalation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2_2_1" type="checkbox" id="__nav_1_2_2_1" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_2_2_1">
+          Docker Basics & Breakout
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Docker Basics & Breakout" data-md-level="4">
+        <label class="md-nav__title" for="__nav_1_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Docker Basics & Breakout
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/docker/authz-authn-docker-access-authorization-plugin.md" class="md-nav__link">
+        AuthZ & AuthN - Docker Access Authorization Plugin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2_2_1_2" type="checkbox" id="__nav_1_2_2_1_2" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_2_2_1_2">
+          Docker Breakout / Privilege Escalation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Docker Breakout / Privilege Escalation" data-md-level="5">
+        <label class="md-nav__title" for="__nav_1_2_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Docker Breakout / Privilege Escalation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/docker/release_agent-exploit-relative-paths-to-pids.md" class="md-nav__link">
+        release_agent exploit - Relative Paths to PIDs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/docker/docker-release_agent-cgroups-escape.md" class="md-nav__link">
+        Docker release_agent cgroups escape
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/docker/sensitive-mounts.md" class="md-nav__link">
+        Sensitive Mounts
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/docker/seccomp.md" class="md-nav__link">
+        Seccomp
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/docker/apparmor.md" class="md-nav__link">
+        AppArmor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/docker/namespaces.md" class="md-nav__link">
+        Namespaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/docker/docker--privileged.md" class="md-nav__link">
+        Docker --privileged
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/docker/abusing-docker-socket-for-privilege-escalation.md" class="md-nav__link">
+        Abusing Docker Socket for Privilege Escalation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/linux-capabilities.md" class="md-nav__link">
+        Linux Capabilities
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/useful-linux-commands.md" class="md-nav__link">
+        Useful Linux Commands
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2_4" type="checkbox" id="__nav_1_2_4" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_2_4">
+          Bypass Linux Shell Restrictions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Bypass Linux Shell Restrictions" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Bypass Linux Shell Restrictions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/ddexec.md" class="md-nav__link">
+        DDexec
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/linux-environment-variables.md" class="md-nav__link">
+        Linux Environment Variables
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_3">
+          Pentesting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Pentesting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          Pentesting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3_1" type="checkbox" id="__nav_1_3_1" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_3_1">
+          Network Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Network Services" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Network Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pentesting/network/44134-pentesting-tiller-helm.md" class="md-nav__link">
+        44134 Pentesting Tiller (Helm)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Secure
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Secure" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Secure
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/secure/secure-kubernetes.md" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/secure/secure-github.md" class="md-nav__link">
+        Github
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/secure/secure-circleci.md" class="md-nav__link">
+        CircleCI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/secure/secure-jenkins.md" class="md-nav__link">
+        Jenkins
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/secure/secure-aws.md" class="md-nav__link">
+        AWS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          DevOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/devops/devops-kubernetes.md" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/devops/devops-istio.md" class="md-nav__link">
+        Istio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/Users/vi/DevSecOps/withvi.github.io/docs/content/en/docs/devops/devops-bitbucket.md" class="md-nav__link">
+        Bitbucket
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+  
+  
+
+
+  <nav class="md-tags" hidden>
+    
+      
+        <a href="../../../../../tags/#task" class="md-tag">
+          task
+        </a>
+      
+    
+  </nav>
+
+
+
+<h1 id="production-deployment">Production Deployment<a class="headerlink" href="#production-deployment" title="Permanent link">&para;</a></h1>
+<p>This page shows how to deploy the Beincomm in production environment.</p>
+<h2 id="before-you-begin">Before you begin<a class="headerlink" href="#before-you-begin" title="Permanent link">&para;</a></h2>
+<p>You need to have:</p>
+<ul>
+<li>A managed Kubernetes cluster for backend services managed Kubernetes cluster for Kafka cluster.</li>
+<li>A managed PostgeSQL and Redis database.</li>
+<li>Accessible to ALL the related source codes, CircleCI, AWS environment, 3<sup>rd</sup> party software such as SendGrid, Sentry, NewRelic,...</li>
+<li>Accessible to DevOps configuration files repository</li>
+<li>kubectl, aws, doppler command-line tool</li>
+</ul>
+<h2 id="pre-requisites">Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permanent link">&para;</a></h2>
+<p>Clone the configuration files and move to the cloned folder</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git clone git@github.com:bicdevops/production-may-2022.git
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span> production-may-2022
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span> production-may-2022
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Cloning into <span class="s1">&#39;production-may-2022&#39;</span>...
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>remote: Enumerating objects: <span class="m">2987</span>, <span class="k">done</span>.
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>remote: Total <span class="m">2987</span> <span class="o">(</span>delta <span class="m">0</span><span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta <span class="m">0</span><span class="o">)</span>, pack-reused <span class="m">2987</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Receiving objects: <span class="m">100</span>% <span class="o">(</span><span class="m">2987</span>/2987<span class="o">)</span>, <span class="m">45</span>.98 MiB <span class="p">|</span> <span class="m">6</span>.36 MiB/s, <span class="k">done</span>.
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>Resolving deltas: <span class="m">100</span>% <span class="o">(</span><span class="m">1085</span>/1085<span class="o">)</span>, <span class="k">done</span>.
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>Updating files: <span class="m">100</span>% <span class="o">(</span><span class="m">3381</span>/3381<span class="o">)</span>, <span class="k">done</span>.
+</code></pre></div>
+<hr />
+<h2 id="pre-deployment">Pre-deployment<a class="headerlink" href="#pre-deployment" title="Permanent link">&para;</a></h2>
+<h3 id="clean-up-unnecessary-kubernetes-resources">Clean up unnecessary Kubernetes resources<a class="headerlink" href="#clean-up-unnecessary-kubernetes-resources" title="Permanent link">&para;</a></h3>
+<p>Delete <strong>Bein Feed</strong> deployment and service in Kubernetes cluster</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubectl delete deployment bein-feed-backend-api
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>kubectl delete service bein-feed-backend-api
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>deployment.apps <span class="s2">&quot;bein-feed-backend-api&quot;</span> deleted
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>service <span class="s2">&quot;bein-feed-backend-api&quot;</span> deleted
+</code></pre></div>
+<p>Delete <strong>Bein Mattermost</strong> deployment and service in Kubernetes cluster</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>kubectl delete deployment bein-mattermost-backend-api
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>kubectl delete service bein-mattermost-backend-api
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>deployment.apps <span class="s2">&quot;bein-mattermost-backend-api&quot;</span> deleted
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>service <span class="s2">&quot;bein-mattermost-backend-api&quot;</span> deleted
+</code></pre></div>
+<h3 id="clean-up-all-data-on-redis">Clean up all data on Redis<a class="headerlink" href="#clean-up-all-data-on-redis" title="Permanent link">&para;</a></h3>
+<p>Follow the best practice to clean up data</p>
+<h3 id="clean-up-all-data-on-aws-cognito">Clean up all data on AWS Cognito<a class="headerlink" href="#clean-up-all-data-on-aws-cognito" title="Permanent link">&para;</a></h3>
+<p>Follow the best practice to clean up data</p>
+<h3 id="clean-up-all-data-on-elasticsearch">Clean up all data on ElasticSearch<a class="headerlink" href="#clean-up-all-data-on-elasticsearch" title="Permanent link">&para;</a></h3>
+<p>Follow the best practice to clean up data</p>
+<h3 id="create-doppler-secrets">Create Doppler secrets<a class="headerlink" href="#create-doppler-secrets" title="Permanent link">&para;</a></h3>
+<p>Install Doppler CLI and login to Doppler via website</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>./doppler/doppler_1_install_cli_and_login.sh
+</code></pre></div>
+<p>Info "Information when using <code>doppler login</code>"</p>
+<ol>
+<li>Overwrite global login (/) <strong>/</strong></li>
+<li>Open the authorization page in your browser? (Y/n) <strong>Y</strong></li>
+<li>Paste the <strong>auth code</strong> into the Doppler website</li>
+<li>Choose <strong>BIC</strong> Workplace</li>
+</ol>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Warning: gnupg <span class="m">2</span>.3.6 is already installed, it<span class="s1">&#39;s just not linked.</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="s1">To link this version, run:</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="s1">    brew link gnupg</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="s1">Warning: dopplerhq/cli/doppler 3.40.0 is already installed, it&#39;</span>s just not linked.
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>To link this version, run:
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    brew link doppler
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>Warning: You have already logged <span class="k">in</span>.
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>Would you like to scope your new login to the current directory, or overwrite the existing global login?
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>? Select an option: Scope login to current directory <span class="o">(</span>/Users/vi/BICDevOps/production-may-2022<span class="o">)</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>Overwrite global login <span class="o">(</span>/<span class="o">)</span> /
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>? Open the authorization page <span class="k">in</span> your browser? Yes
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>Complete authorization at https://dashboard.doppler.com/workplace/auth/cli
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>Your auth code is:
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>*********_elderberry_stegosaurus_chili_cinnamon
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>Waiting...
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>Welcome, Nhâm
+</code></pre></div>
+<p>Install <code>Doppler Kubernetes Operator</code> with manifest file</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./doppler/doppler_2_install_kubernetes_operator.sh
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>namespace/bic-doppler-operator-system created
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>customresourcedefinition.apiextensions.k8s.io/dopplersecrets.secrets.doppler.com created
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>serviceaccount/doppler-operator-controller-manager created
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>role.rbac.authorization.k8s.io/doppler-operator-leader-election-role created
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>clusterrole.rbac.authorization.k8s.io/doppler-operator-manager-role created
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>clusterrole.rbac.authorization.k8s.io/doppler-operator-metrics-reader created
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>clusterrole.rbac.authorization.k8s.io/doppler-operator-proxy-role created
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>rolebinding.rbac.authorization.k8s.io/doppler-operator-leader-election-rolebinding created
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>clusterrolebinding.rbac.authorization.k8s.io/doppler-operator-manager-rolebinding created
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>clusterrolebinding.rbac.authorization.k8s.io/doppler-operator-proxy-rolebinding created
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>configmap/doppler-operator-manager-config created
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>service/doppler-operator-controller-manager-metrics-service created
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>deployment.apps/doppler-operator-controller-manager created
+</code></pre></div>
+<p>Create Doppler secrets - this will create all secrets to connect to Doppler</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>./doppler/doppler_3_setup_secrets.sh
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>secret/bic-chat-pro-doppler-token-secret created
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>dopplersecret.secrets.doppler.com/bic-chat-pro-doppler-secret created
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>secret/bic-comm-pro-doppler-token-secret created
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>dopplersecret.secrets.doppler.com/bic-comm-pro-doppler-secret created
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>secret/bic-stream-pro-doppler-token-secret created
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>dopplersecret.secrets.doppler.com/bic-stream-pro-doppler-secret created
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>secret/bic-notification-pro-doppler-token-secret created
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>dopplersecret.secrets.doppler.com/bic-notification-pro-doppler-secret created
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>secret/bic-upload-kaltura-pro-doppler-token-secret created
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>dopplersecret.secrets.doppler.com/bic-upload-kaltura-pro-doppler-secret created
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>secret/bic-upload-manage-pro-doppler-token-secret created
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>dopplersecret.secrets.doppler.com/bic-upload-manage-pro-doppler-secret created
+</code></pre></div>
+<h3 id="create-self-host-kafka-kubernetes-cluster-in-digitalocean">Create self-host Kafka Kubernetes cluster in DigitalOcean<a class="headerlink" href="#create-self-host-kafka-kubernetes-cluster-in-digitalocean" title="Permanent link">&para;</a></h3>
+<p>Create Kubernetes cluster name: <code>bein-pro-sgp1-k8s-kafka-cluster</code></p>
+<p>With node pool and capacities</p>
+<table>
+<thead>
+<tr>
+<th>Node pool</th>
+<th align="center">Capacity</th>
+<th align="center"># of node</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kafka-pro-basic40-pool</td>
+<td align="center">4vCPU, 8GB RAM</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td>kafka-pro-10-pool</td>
+<td align="center">1vCPU, 2GB RAM</td>
+<td align="center">2</td>
+</tr>
+</tbody>
+</table>
+<p>Create Kafka Kubernetes cluster</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>./kafka/kafka_1_nodeport_cluster_SCRAM.sh
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>namespace/kafka created
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>                                Dload  Upload   Total   Spent    Left  Speed
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="m">0</span>     <span class="m">0</span>    <span class="m">0</span>     <span class="m">0</span>    <span class="m">0</span>     <span class="m">0</span>      <span class="m">0</span>      <span class="m">0</span> --:--:-- --:--:-- --:--:--     <span class="m">0</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="m">100</span>  751k  <span class="m">100</span>  751k    <span class="m">0</span>     <span class="m">0</span>   334k      <span class="m">0</span>  <span class="m">0</span>:00:02  <span class="m">0</span>:00:02 --:--:-- 2231k
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>customresourcedefinition.apiextensions.k8s.io/strimzipodsets.core.strimzi.io created
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>customresourcedefinition.apiextensions.k8s.io/kafkausers.kafka.strimzi.io created
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>customresourcedefinition.apiextensions.k8s.io/kafkas.kafka.strimzi.io created
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-namespaced created
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>clusterrole.rbac.authorization.k8s.io/strimzi-kafka-broker created
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>customresourcedefinition.apiextensions.k8s.io/kafkaconnects.kafka.strimzi.io created
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>customresourcedefinition.apiextensions.k8s.io/kafkaconnectors.kafka.strimzi.io created
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>deployment.apps/strimzi-cluster-operator created
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>customresourcedefinition.apiextensions.k8s.io/kafkarebalances.kafka.strimzi.io created
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator created
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>clusterrole.rbac.authorization.k8s.io/strimzi-cluster-operator-global created
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>customresourcedefinition.apiextensions.k8s.io/kafkabridges.kafka.strimzi.io created
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>customresourcedefinition.apiextensions.k8s.io/kafkamirrormaker2s.kafka.strimzi.io created
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>rolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-entity-operator-delegation created
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>clusterrole.rbac.authorization.k8s.io/strimzi-kafka-client created
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>clusterrolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-kafka-client-delegation created
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>clusterrolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator created
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>customresourcedefinition.apiextensions.k8s.io/kafkatopics.kafka.strimzi.io created
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>clusterrolebinding.rbac.authorization.k8s.io/strimzi-cluster-operator-kafka-broker-delegation created
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>configmap/strimzi-cluster-operator created
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>clusterrole.rbac.authorization.k8s.io/strimzi-entity-operator created
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>customresourcedefinition.apiextensions.k8s.io/kafkamirrormakers.kafka.strimzi.io created
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>serviceaccount/strimzi-cluster-operator created
+<a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>kafka.kafka.strimzi.io/my-cluster created
+<a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>kafkatopic.kafka.strimzi.io/my-topic created
+<a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>secret/bic-comm-pro-kafka-secret created
+<a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>kafkauser.kafka.strimzi.io/bic-comm-pro-kafka-user created
+<a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>secret/bic-chat-pro-kafka-secret created
+<a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>kafkauser.kafka.strimzi.io/bic-chat-pro-kafka-user created
+<a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>secret/bic-stream-pro-kafka-secret created
+<a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a>kafkauser.kafka.strimzi.io/bic-stream-pro-kafka-user created
+<a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a>secret/bic-notification-pro-kafka-secret created
+<a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a>kafkauser.kafka.strimzi.io/bic-notification-pro-kafka-user created
+<a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a>secret/kafka-test-secret created
+<a id="__codelineno-13-40" name="__codelineno-13-40" href="#__codelineno-13-40"></a>kafkauser.kafka.strimzi.io/kafka-test created
+<a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a>
+<a id="__codelineno-13-42" name="__codelineno-13-42" href="#__codelineno-13-42"></a>NAME                                        READY   STATUS              RESTARTS   AGE
+<a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a>strimzi-cluster-operator-585f6fd9d7-8vm59   <span class="m">0</span>/1     ContainerCreating   <span class="m">0</span>          8s
+<a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a>strimzi-cluster-operator-585f6fd9d7-8vm59   <span class="m">0</span>/1     Running             <span class="m">0</span>          17s
+<a id="__codelineno-13-45" name="__codelineno-13-45" href="#__codelineno-13-45"></a>strimzi-cluster-operator-585f6fd9d7-8vm59   <span class="m">1</span>/1     Running             <span class="m">0</span>          31s
+<a id="__codelineno-13-46" name="__codelineno-13-46" href="#__codelineno-13-46"></a>my-cluster-zookeeper-0                      <span class="m">0</span>/1     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-47" name="__codelineno-13-47" href="#__codelineno-13-47"></a>my-cluster-zookeeper-1                      <span class="m">0</span>/1     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-48" name="__codelineno-13-48" href="#__codelineno-13-48"></a>my-cluster-zookeeper-0                      <span class="m">0</span>/1     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-49" name="__codelineno-13-49" href="#__codelineno-13-49"></a>my-cluster-zookeeper-1                      <span class="m">0</span>/1     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-50" name="__codelineno-13-50" href="#__codelineno-13-50"></a>my-cluster-zookeeper-2                      <span class="m">0</span>/1     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-51" name="__codelineno-13-51" href="#__codelineno-13-51"></a>my-cluster-zookeeper-2                      <span class="m">0</span>/1     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-52" name="__codelineno-13-52" href="#__codelineno-13-52"></a>my-cluster-zookeeper-1                      <span class="m">0</span>/1     Pending             <span class="m">0</span>          4s
+<a id="__codelineno-13-53" name="__codelineno-13-53" href="#__codelineno-13-53"></a>my-cluster-zookeeper-1                      <span class="m">0</span>/1     ContainerCreating   <span class="m">0</span>          4s
+<a id="__codelineno-13-54" name="__codelineno-13-54" href="#__codelineno-13-54"></a>my-cluster-zookeeper-0                      <span class="m">0</span>/1     Pending             <span class="m">0</span>          8s
+<a id="__codelineno-13-55" name="__codelineno-13-55" href="#__codelineno-13-55"></a>my-cluster-zookeeper-2                      <span class="m">0</span>/1     Pending             <span class="m">0</span>          8s
+<a id="__codelineno-13-56" name="__codelineno-13-56" href="#__codelineno-13-56"></a>my-cluster-zookeeper-0                      <span class="m">0</span>/1     ContainerCreating   <span class="m">0</span>          8s
+<a id="__codelineno-13-57" name="__codelineno-13-57" href="#__codelineno-13-57"></a>my-cluster-zookeeper-2                      <span class="m">0</span>/1     ContainerCreating   <span class="m">0</span>          8s
+<a id="__codelineno-13-58" name="__codelineno-13-58" href="#__codelineno-13-58"></a>my-cluster-zookeeper-1                      <span class="m">0</span>/1     Running             <span class="m">0</span>          29s
+<a id="__codelineno-13-59" name="__codelineno-13-59" href="#__codelineno-13-59"></a>my-cluster-zookeeper-2                      <span class="m">0</span>/1     Running             <span class="m">0</span>          29s
+<a id="__codelineno-13-60" name="__codelineno-13-60" href="#__codelineno-13-60"></a>my-cluster-zookeeper-0                      <span class="m">0</span>/1     Running             <span class="m">0</span>          30s
+<a id="__codelineno-13-61" name="__codelineno-13-61" href="#__codelineno-13-61"></a>my-cluster-zookeeper-1                      <span class="m">1</span>/1     Running             <span class="m">0</span>          45s
+<a id="__codelineno-13-62" name="__codelineno-13-62" href="#__codelineno-13-62"></a>my-cluster-zookeeper-0                      <span class="m">1</span>/1     Running             <span class="m">0</span>          49s
+<a id="__codelineno-13-63" name="__codelineno-13-63" href="#__codelineno-13-63"></a>my-cluster-zookeeper-2                      <span class="m">1</span>/1     Running             <span class="m">0</span>          49s
+<a id="__codelineno-13-64" name="__codelineno-13-64" href="#__codelineno-13-64"></a>my-cluster-kafka-0                          <span class="m">0</span>/1     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-65" name="__codelineno-13-65" href="#__codelineno-13-65"></a>my-cluster-kafka-1                          <span class="m">0</span>/1     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-66" name="__codelineno-13-66" href="#__codelineno-13-66"></a>my-cluster-kafka-0                          <span class="m">0</span>/1     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-67" name="__codelineno-13-67" href="#__codelineno-13-67"></a>my-cluster-kafka-2                          <span class="m">0</span>/1     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-68" name="__codelineno-13-68" href="#__codelineno-13-68"></a>my-cluster-kafka-1                          <span class="m">0</span>/1     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-69" name="__codelineno-13-69" href="#__codelineno-13-69"></a>my-cluster-kafka-2                          <span class="m">0</span>/1     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-70" name="__codelineno-13-70" href="#__codelineno-13-70"></a>my-cluster-kafka-0                          <span class="m">0</span>/1     Pending             <span class="m">0</span>          4s
+<a id="__codelineno-13-71" name="__codelineno-13-71" href="#__codelineno-13-71"></a>my-cluster-kafka-2                          <span class="m">0</span>/1     Pending             <span class="m">0</span>          4s
+<a id="__codelineno-13-72" name="__codelineno-13-72" href="#__codelineno-13-72"></a>my-cluster-kafka-0                          <span class="m">0</span>/1     Init:0/1            <span class="m">0</span>          4s
+<a id="__codelineno-13-73" name="__codelineno-13-73" href="#__codelineno-13-73"></a>my-cluster-kafka-2                          <span class="m">0</span>/1     Init:0/1            <span class="m">0</span>          4s
+<a id="__codelineno-13-74" name="__codelineno-13-74" href="#__codelineno-13-74"></a>my-cluster-kafka-1                          <span class="m">0</span>/1     Pending             <span class="m">0</span>          8s
+<a id="__codelineno-13-75" name="__codelineno-13-75" href="#__codelineno-13-75"></a>my-cluster-kafka-1                          <span class="m">0</span>/1     Init:0/1            <span class="m">0</span>          8s
+<a id="__codelineno-13-76" name="__codelineno-13-76" href="#__codelineno-13-76"></a>my-cluster-kafka-2                          <span class="m">0</span>/1     Init:0/1            <span class="m">0</span>          18s
+<a id="__codelineno-13-77" name="__codelineno-13-77" href="#__codelineno-13-77"></a>my-cluster-kafka-2                          <span class="m">0</span>/1     PodInitializing     <span class="m">0</span>          21s
+<a id="__codelineno-13-78" name="__codelineno-13-78" href="#__codelineno-13-78"></a>my-cluster-kafka-2                          <span class="m">0</span>/1     Running             <span class="m">0</span>          22s
+<a id="__codelineno-13-79" name="__codelineno-13-79" href="#__codelineno-13-79"></a>my-cluster-kafka-0                          <span class="m">0</span>/1     Init:0/1            <span class="m">0</span>          26s
+<a id="__codelineno-13-80" name="__codelineno-13-80" href="#__codelineno-13-80"></a>my-cluster-kafka-1                          <span class="m">0</span>/1     Init:0/1            <span class="m">0</span>          29s
+<a id="__codelineno-13-81" name="__codelineno-13-81" href="#__codelineno-13-81"></a>my-cluster-kafka-0                          <span class="m">0</span>/1     PodInitializing     <span class="m">0</span>          34s
+<a id="__codelineno-13-82" name="__codelineno-13-82" href="#__codelineno-13-82"></a>my-cluster-kafka-0                          <span class="m">0</span>/1     Running             <span class="m">0</span>          35s
+<a id="__codelineno-13-83" name="__codelineno-13-83" href="#__codelineno-13-83"></a>my-cluster-kafka-1                          <span class="m">0</span>/1     PodInitializing     <span class="m">0</span>          39s
+<a id="__codelineno-13-84" name="__codelineno-13-84" href="#__codelineno-13-84"></a>my-cluster-kafka-1                          <span class="m">0</span>/1     Running             <span class="m">0</span>          40s
+<a id="__codelineno-13-85" name="__codelineno-13-85" href="#__codelineno-13-85"></a>my-cluster-kafka-2                          <span class="m">1</span>/1     Running             <span class="m">0</span>          55s
+<a id="__codelineno-13-86" name="__codelineno-13-86" href="#__codelineno-13-86"></a>my-cluster-kafka-1                          <span class="m">1</span>/1     Running             <span class="m">0</span>          68s
+<a id="__codelineno-13-87" name="__codelineno-13-87" href="#__codelineno-13-87"></a>my-cluster-kafka-0                          <span class="m">1</span>/1     Running             <span class="m">0</span>          75s
+<a id="__codelineno-13-88" name="__codelineno-13-88" href="#__codelineno-13-88"></a>my-cluster-entity-operator-58f4844c45-nqdxs   <span class="m">0</span>/3     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-89" name="__codelineno-13-89" href="#__codelineno-13-89"></a>my-cluster-entity-operator-58f4844c45-nqdxs   <span class="m">0</span>/3     Pending             <span class="m">0</span>          0s
+<a id="__codelineno-13-90" name="__codelineno-13-90" href="#__codelineno-13-90"></a>my-cluster-entity-operator-58f4844c45-nqdxs   <span class="m">0</span>/3     ContainerCreating   <span class="m">0</span>          0s
+<a id="__codelineno-13-91" name="__codelineno-13-91" href="#__codelineno-13-91"></a>my-cluster-entity-operator-58f4844c45-nqdxs   <span class="m">0</span>/3     Running             <span class="m">0</span>          18s
+<a id="__codelineno-13-92" name="__codelineno-13-92" href="#__codelineno-13-92"></a>my-cluster-entity-operator-58f4844c45-nqdxs   <span class="m">1</span>/3     Running             <span class="m">0</span>          22s
+<a id="__codelineno-13-93" name="__codelineno-13-93" href="#__codelineno-13-93"></a>my-cluster-entity-operator-58f4844c45-nqdxs   <span class="m">1</span>/3     Running             <span class="m">0</span>          22s
+<a id="__codelineno-13-94" name="__codelineno-13-94" href="#__codelineno-13-94"></a>my-cluster-entity-operator-58f4844c45-nqdxs   <span class="m">2</span>/3     Running             <span class="m">0</span>          40s
+<a id="__codelineno-13-95" name="__codelineno-13-95" href="#__codelineno-13-95"></a>my-cluster-entity-operator-58f4844c45-nqdxs   <span class="m">3</span>/3     Running             <span class="m">0</span>          50s
+</code></pre></div>
+<p>Export all client certificates and <code>scram</code> credentials</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">cd</span> kafka
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>./kafka_2_export_certificates.sh
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>ls -la
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>total <span class="m">152</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>drwxr-xr-x  <span class="m">20</span> vi  staff   <span class="m">640</span> Jun  <span class="m">7</span> <span class="m">09</span>:34 .
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>drwxr-xr-x  <span class="m">49</span> vi  staff  <span class="m">1568</span> Jun  <span class="m">7</span> <span class="m">14</span>:14 ..
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>-rw-r--r--   <span class="m">1</span> vi  staff   <span class="m">152</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 bic-chat-pro-kafka-user.config
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>-rw-r--r--   <span class="m">1</span> vi  staff    <span class="m">40</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 bic-chat-pro-kafka-user.password
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>-rw-r--r--   <span class="m">1</span> vi  staff   <span class="m">152</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 bic-comm-pro-kafka-user.config
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>-rw-r--r--   <span class="m">1</span> vi  staff    <span class="m">40</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 bic-comm-pro-kafka-user.password
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>-rw-r--r--   <span class="m">1</span> vi  staff   <span class="m">160</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 bic-notification-pro-kafka-user.config
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>-rw-r--r--   <span class="m">1</span> vi  staff    <span class="m">40</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 bic-notification-pro-kafka-user.password
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>-rw-r--r--   <span class="m">1</span> vi  staff   <span class="m">154</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 bic-stream-pro-kafka-user.config
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>-rw-r--r--   <span class="m">1</span> vi  staff    <span class="m">40</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 bic-stream-pro-kafka-user.password
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>-rw-r--r--   <span class="m">1</span> vi  staff  <span class="m">1854</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 ca.crt
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>-rw-r--r--   <span class="m">1</span> vi  staff  <span class="m">1687</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 ca.p12
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>-rw-r--r--   <span class="m">1</span> vi  staff    <span class="m">12</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 ca.password
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>-rw-r--r--   <span class="m">1</span> vi  staff  <span class="m">1854</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 client-cert.pem
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>-rw-r--r--   <span class="m">1</span> vi  staff  <span class="m">3272</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 client-key.pem
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>-rw-r--r--   <span class="m">1</span> vi  staff  <span class="m">1441</span> Jun  <span class="m">7</span> <span class="m">09</span>:34 docker-compose.yml
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>-rw-r--r--   <span class="m">1</span> vi  staff   <span class="m">107</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 kafka-test.config
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>-rw-r--r--   <span class="m">1</span> vi  staff     <span class="m">8</span> Jun  <span class="m">7</span> <span class="m">14</span>:18 kafka-test.password
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>-rwxr-xr-x   <span class="m">1</span> vi  staff  <span class="m">5099</span> Jun  <span class="m">7</span> <span class="m">09</span>:34 kafka_1_nodeport_cluster_SCRAM.sh
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>-rwxr-xr-x   <span class="m">1</span> vi  staff  <span class="m">3078</span> Jun  <span class="m">7</span> <span class="m">09</span>:34 kafka_2_export_certificates.sh
+</code></pre></div>
+<h3 id="create-newrelic-api-key-and-fluentd-on-kubernetes-cluster">Create NewRelic API key and Fluentd on Kubernetes cluster<a class="headerlink" href="#create-newrelic-api-key-and-fluentd-on-kubernetes-cluster" title="Permanent link">&para;</a></h3>
+<h4 id="create-newrelic-api-key">Create NewRelic API key<a class="headerlink" href="#create-newrelic-api-key" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Access <a href="https://one.newrelic.com/launcher/api-keys-ui.api-keys-launcher">https://one.newrelic.com/launcher/api-keys-ui.api-keys-launcher</a></li>
+<li><strong>Create a key</strong></li>
+<li>Choose <strong>Key type</strong>: <strong>Ingest - License</strong></li>
+<li><strong>Name</strong>: <strong>k8s log</strong></li>
+<li>Click <strong>Create a key</strong></li>
+<li>Create base64 encoded format for the newly generated API key and update the <code>data.LICENSE_KEY</code> in the secret object in <code>newrelic_1_install_fluentd_components.sh</code> script</li>
+</ol>
+<p>Encode base64 the license key above</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nb">echo</span> -n <span class="s1">&#39;content-of-the-new-API-key&#39;</span> <span class="p">|</span> base64
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nv">Y29udGVudC1vZi10aGUtbmV3LUFQSS1rZXk</span><span class="o">=</span>
+</code></pre></div>
+<p>Insert the base64 encoded output to the <code>data.LICENCE_KEY</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>cat <span class="s">&lt;&lt;EOF | kubectl apply -f -</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="s">apiVersion: v1</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="s">kind: Secret</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="s">metadata:</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="s">  name: fluentd-aggregation</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="s">  namespace: kube-system</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="s">data:</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="s">  BASE_URI: # content hide</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="s">  LICENSE_KEY: Y29udGVudC1vZi10aGUtbmV3LUFQSS1rZXk= # &lt;== paste here</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="s">EOF</span>
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>secret/fluentd-aggregation created
+</code></pre></div>
+<h4 id="install-fluentd-on-kubernetes-cluster">Install Fluentd on Kubernetes cluster<a class="headerlink" href="#install-fluentd-on-kubernetes-cluster" title="Permanent link">&para;</a></h4>
+<p>Switch to Production Kubernetes cluster</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>kubectl config use-context <span class="k">do</span>-k8s-production
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Switched to context <span class="s2">&quot;do-k8s-production&quot;</span>.
+</code></pre></div>
+<p>Install Fluentd aggregation</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>./newrelic/newrelic_1_install_fluentd_components.sh
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>daemonset.apps/fluentd-agent created
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>clusterrole.rbac.authorization.k8s.io/fluentd created
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>clusterrolebinding.rbac.authorization.k8s.io/fluentd created
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>configmap/fluentd-aggregation-config created
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>deployment.apps/fluentd-aggregation created
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>secret/fluentd-aggregation configured
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>service/fluentd-aggregation created
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>serviceaccount/fluentd created
+</code></pre></div>
+<p>Update the Ingress log format</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>./newrelic/newrelic_2_update_ingress_log_format.sh
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>configmap/ingress-nginx-controller created
+</code></pre></div>
+<h3 id="create-sendgrid-api-key-and-verify-sender-email">Create SendGrid API key and verify sender email<a class="headerlink" href="#create-sendgrid-api-key-and-verify-sender-email" title="Permanent link">&para;</a></h3>
+<h2 id="bein-chat-deployment">Bein Chat Deployment<a class="headerlink" href="#bein-chat-deployment" title="Permanent link">&para;</a></h2>
+<h3 id="drop-postgres-all-tables">Drop Postgres all tables<a class="headerlink" href="#drop-postgres-all-tables" title="Permanent link">&para;</a></h3>
+<h3 id="deploy-chat-backend-and-chat-frontend-in-kubernetes-cluster">Deploy Chat backend and Chat frontend in Kubernetes cluster<a class="headerlink" href="#deploy-chat-backend-and-chat-frontend-in-kubernetes-cluster" title="Permanent link">&para;</a></h3>
+<p>Switch to Production Kubernetes cluster</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>kubectl config use-context <span class="k">do</span>-k8s-production
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>Switched to context <span class="s2">&quot;do-k8s-production&quot;</span>.
+</code></pre></div>
+<p>Create PVCs for Chat</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>./chat/chat_1_create_pvc.sh
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>persistentvolumeclaim/do-vol-mattermost-data-pvc created
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>persistentvolumeclaim/do-vol-mattermost-plugins-pvc created
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>persistentvolumeclaim/do-vol-mattermost-client-plugins-pvc created
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>persistentvolumeclaim/do-vol-mattermost-config-pvc created
+</code></pre></div>
+<p>Deploy CI/CD job to branch <code>master</code> for <code>bein-mattermost-server</code> and <code>bein-chat-web</code> source code</p>
+<p>Upload the updated config.json file to newly deployed Chat server</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>./chat/chat_2_copy_config_file.sh
+</code></pre></div>
+<p>Restart the Chat server by delete the running Pod (example name <code>bein-mattermost-7b67589799-kihj5</code>)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>kubectl rollout restart deployment bein-mattermost
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>deployment.apps/bein-mattermost restarted
+</code></pre></div>
+<p>Verify the new Chat server Pod is in <code>Running</code> state</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>kubectl get pod
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>NAME                                            READY   STATUS             RESTARTS   AGE
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>bein-mattermost-674db8c96d-twcl5                <span class="m">0</span>/1     Terminating        <span class="m">0</span>          4h19m
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>bein-mattermost-7bbbb64d64-b7t82                <span class="m">1</span>/1     Running            <span class="m">0</span>          12s
+</code></pre></div>
+<h3 id="create-chat-system-admin">Create Chat System Admin<a class="headerlink" href="#create-chat-system-admin" title="Permanent link">&para;</a></h3>
+<p>Follow the instruction below:</p>
+<p>https://app.clickup.com/3649385/v/dc/3fbv9-16924/3fbv9-21065</p>
+<h3 id="upload-chat-plugins">Upload Chat plugins<a class="headerlink" href="#upload-chat-plugins" title="Permanent link">&para;</a></h3>
+<p>Follow the instruction below:</p>
+<p>https://app.clickup.com/3649385/v/dc/3fbv9-16924/3fbv9-24907</p>
+<h3 id="setup-sendgrid-email-on-chat">Setup SendGrid email on Chat<a class="headerlink" href="#setup-sendgrid-email-on-chat" title="Permanent link">&para;</a></h3>
+<h3 id="setup-push-notification-proxy-on-kubernetes-cluster">Setup Push Notification Proxy on Kubernetes cluster<a class="headerlink" href="#setup-push-notification-proxy-on-kubernetes-cluster" title="Permanent link">&para;</a></h3>
+<p>Install Push Notification Proxy</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>./chat/chat_3_install_push_notification_proxy.sh
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>configmap/mattermost-push-noti-configmap created
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>service/bein-mattermost-push-noti-proxy created
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>deployment.apps/bein-mattermost-push-noti-proxy created
+</code></pre></div>
+<p>https://app.clickup.com/3649385/v/dc/3fbv9-16924/3fbv9-20125</p>
+<h3 id="deploy-chat-app">Deploy Chat app<a class="headerlink" href="#deploy-chat-app" title="Permanent link">&para;</a></h3>
+<h2 id="bein-comm-deployment">Bein Comm Deployment<a class="headerlink" href="#bein-comm-deployment" title="Permanent link">&para;</a></h2>
+<h3 id="truncate-old-postgres-data">Truncate old Postgres data<a class="headerlink" href="#truncate-old-postgres-data" title="Permanent link">&para;</a></h3>
+<h3 id="deploy-comm-backend">Deploy Comm backend<a class="headerlink" href="#deploy-comm-backend" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Update environment variables of <code>bic-comm</code> <strong>Production</strong> environment on Doppler</li>
+<li>Merge code of <code>bein-backend</code> repository from <code>staging</code> to <code>master</code> branch</li>
+</ol>
+<h3 id="deploy-comm-web">Deploy Comm web<a class="headerlink" href="#deploy-comm-web" title="Permanent link">&para;</a></h3>
+<h3 id="deploy-comm-app">Deploy Comm app<a class="headerlink" href="#deploy-comm-app" title="Permanent link">&para;</a></h3>
+<h3 id="deploy-comm-web-staff">Deploy Comm web staff<a class="headerlink" href="#deploy-comm-web-staff" title="Permanent link">&para;</a></h3>
+<h2 id="bein-stream-deployment">Bein Stream Deployment<a class="headerlink" href="#bein-stream-deployment" title="Permanent link">&para;</a></h2>
+<h3 id="deploy-stream-backend">Deploy Stream backend<a class="headerlink" href="#deploy-stream-backend" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Update environment variables of <code>bic-stream</code> <strong>Production</strong> environment on Doppler</li>
+<li>Merge code of <code>bein-stream</code> repository from <code>staging</code> to <code>master</code> branch</li>
+</ol>
+<h3 id="create-bein_stream-schema-in-postgres">Create bein_stream schema in Postgres<a class="headerlink" href="#create-bein_stream-schema-in-postgres" title="Permanent link">&para;</a></h3>
+<p>Create <code>bein_stream</code> schema</p>
+<p><img alt="Screenshot" src="images/bic/stream-postgres-create-schema.png" /></p>
+<h2 id="bein-notification-deployment">Bein Notification Deployment<a class="headerlink" href="#bein-notification-deployment" title="Permanent link">&para;</a></h2>
+<h3 id="deploy-notification-backend">Deploy Notification backend<a class="headerlink" href="#deploy-notification-backend" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Update environment variables of <code>bic-stream</code> <strong>Production</strong> environment on Doppler</li>
+<li>Merge code of <code>bein-stream</code> repository from <code>staging</code> to <code>master</code> branch</li>
+</ol>
+<h3 id="create-bein_notification-schema-in-postgres">Create bein_notification schema in Postgres<a class="headerlink" href="#create-bein_notification-schema-in-postgres" title="Permanent link">&para;</a></h3>
+<p>Create <code>bein_notification</code> schema</p>
+<p><img alt="Screenshot" src="images/bic/notification-postgres-create-schema.png" /></p>
+<h2 id="post-deployment">Post-deployment<a class="headerlink" href="#post-deployment" title="Permanent link">&para;</a></h2>
+<h3 id="update-ingress-controller-resources-in-kubernetes-cluster">Update Ingress Controller resources in Kubernetes cluster<a class="headerlink" href="#update-ingress-controller-resources-in-kubernetes-cluster" title="Permanent link">&para;</a></h3>
+<p>Update Ingress Controller resources</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>./nginx-ingress/ingress_1_update_ingress.sh
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>ingress.networking.k8s.io/bein-group-ingress configured
+</code></pre></div>
+<h3 id="create-super-admin-and-bic-team-accounts">Create Super Admin and BIC Team accounts<a class="headerlink" href="#create-super-admin-and-bic-team-accounts" title="Permanent link">&para;</a></h3>
+<h3 id="create-communities-and-groups">Create Communities and Groups<a class="headerlink" href="#create-communities-and-groups" title="Permanent link">&para;</a></h3>
+<h2 id="bein-upload-deployment">Bein Upload Deployment<a class="headerlink" href="#bein-upload-deployment" title="Permanent link">&para;</a></h2>
+<h3 id="bein-upload-kaltura-deployment">Bein Upload Kaltura Deployment<a class="headerlink" href="#bein-upload-kaltura-deployment" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Update environment variables of <code>bic-upload-kaltura</code> <strong>Production</strong> environment on Doppler</li>
+<li>Merge code of <code>bein-upload-kaltura</code> repository from <code>staging</code> to <code>master</code> branch</li>
+</ol>
+<h3 id="bein-upload-manage-deployment">Bein Upload Manage Deployment<a class="headerlink" href="#bein-upload-manage-deployment" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Update environment variables of <code>bic-upload-manage</code> <strong>Production</strong> environment on Doppler</li>
+<li>Merge code of <code>bein-upload-manage</code> repository from <code>staging</code> to <code>master</code> branch</li>
+</ol>
+<h2 id="api-gateway-apisix">API Gateway (APISIX)<a class="headerlink" href="#api-gateway-apisix" title="Permanent link">&para;</a></h2>
+<p>Create APISIX and APISIX Ingress Controller</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>./apisix/apisix_1_install_apisix_and_ingress_controller.sh
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>Hang tight <span class="k">while</span> we grab the latest from your chart repositories...
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>...Successfully got an update from the <span class="s2">&quot;apisix&quot;</span> chart repository
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>Update Complete. ⎈Happy Helming!⎈
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>NAME: apisix
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>LAST DEPLOYED: Thu Jun <span class="m">23</span> <span class="m">15</span>:49:53 <span class="m">2022</span>
+<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a>NAMESPACE: ingress-apisix
+<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a>STATUS: deployed
+<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a>REVISION: <span class="m">1</span>
+<a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a>TEST SUITE: None
+<a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a>NOTES:
+<a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a><span class="m">1</span>. Get the application URL by running these commands:
+<a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a>     NOTE: It may take a few minutes <span class="k">for</span> the LoadBalancer IP to be available.
+<a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a>           You can watch the status of by running <span class="s1">&#39;kubectl get --namespace ingress-apisix svc -w apisix-gateway&#39;</span>
+<a id="__codelineno-39-14" name="__codelineno-39-14" href="#__codelineno-39-14"></a>  <span class="nb">export</span> <span class="nv">SERVICE_IP</span><span class="o">=</span><span class="k">$(</span>kubectl get svc --namespace ingress-apisix apisix-gateway --template <span class="s2">&quot;{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}&quot;</span><span class="k">)</span>
+<a id="__codelineno-39-15" name="__codelineno-39-15" href="#__codelineno-39-15"></a>  <span class="nb">echo</span> http://<span class="nv">$SERVICE_IP</span>:80
+</code></pre></div>
+<p>Create APISIX-Dashboard</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>./apisix/apisix_2_install_apisix_dashboard.sh
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>Hang tight <span class="k">while</span> we grab the latest from your chart repositories...
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>...Successfully got an update from the <span class="s2">&quot;apisix&quot;</span> chart repository
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>Update Complete. ⎈Happy Helming!⎈
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>NAME: apisix-dashboard
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>LAST DEPLOYED: Thu Jun <span class="m">23</span> <span class="m">15</span>:50:15 <span class="m">2022</span>
+<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>NAMESPACE: ingress-apisix
+<a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>STATUS: deployed
+<a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>REVISION: <span class="m">1</span>
+<a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a>NOTES:
+<a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a><span class="m">1</span>. Get the application URL by running these commands:
+<a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a>  <span class="nb">export</span> <span class="nv">POD_NAME</span><span class="o">=</span><span class="k">$(</span>kubectl get pods --namespace ingress-apisix -l <span class="s2">&quot;app.kubernetes.io/name=apisix-dashboard,app.kubernetes.io/instance=apisix-dashboard&quot;</span> -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&quot;{.items[0].metadata.name}&quot;</span><span class="k">)</span>
+<a id="__codelineno-41-12" name="__codelineno-41-12" href="#__codelineno-41-12"></a>  <span class="nb">export</span> <span class="nv">CONTAINER_PORT</span><span class="o">=</span><span class="k">$(</span>kubectl get pod --namespace ingress-apisix <span class="nv">$POD_NAME</span> -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&quot;{.spec.containers[0].ports[0].containerPort}&quot;</span><span class="k">)</span>
+<a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a>  <span class="nb">echo</span> <span class="s2">&quot;Visit http://127.0.0.1:8080 to use your application&quot;</span>
+<a id="__codelineno-41-14" name="__codelineno-41-14" href="#__codelineno-41-14"></a>  kubectl --namespace ingress-apisix port-forward <span class="nv">$POD_NAME</span> <span class="m">8080</span>:<span class="nv">$CONTAINER_PORT</span>
+</code></pre></div>
+<p>Update APISIX configuration to include the cognito-auth plugin</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>./apisix/apisix_3_update_apisix_config.sh
+</code></pre></div>
+<p>Update APISIX-Dashboard configuration to include the cognito-auth plugin</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>./apisix/apisix_4_update_apisix_dashboard_config.sh 
+</code></pre></div>
+<p>Create APISIX routess by APISIX ingress resource</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>./apisix/apisix_5_create_apisix_routes_by_ingress_controller.sh
+</code></pre></div>
+<p>The output is similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>ingress.networking.k8s.io/bic-apisix-ingress created
+</code></pre></div>
+<p>To create an IAM OIDC identity provider for your cluster with the AWS Management Console</p>
+<ol>
+<li>
+<p>Open the Amazon EKS console at https://console.aws.amazon.com/eks/home#/clusters.</p>
+</li>
+<li>
+<p>Select the name of your cluster.</p>
+</li>
+<li>
+<p>In the Details section on the Overview tab, note the value of the OpenID Connect provider URL.</p>
+</li>
+<li>
+<p>Open the IAM console at https://console.aws.amazon.com/iam/.</p>
+</li>
+<li>
+<p>In the left navigation pane, choose Identity Providers under Access management. If a Provider is listed that matches the URL for your cluster, then you already have a provider for your cluster. If a provider isn't listed that matches the URL for your cluster, then you must create one.</p>
+</li>
+<li>
+<p>To create a provider, choose Add Provider.</p>
+</li>
+<li>
+<p>For Provider Type, choose OpenID Connect.</p>
+</li>
+<li>
+<p>For Provider URL, paste the OIDC issuer URL for your cluster, and then choose Get thumbprint.</p>
+</li>
+<li>
+<p>For Audience, enter sts.amazonaws.com and choose Add provider.</p>
+</li>
+</ol>
+<!-- *[Add-ons]: Resources that extend the functionality of Kubernetes.
+*[Admission Controller]: A piece of code that intercepts requests to the Kubernetes API server prior to persistence of the object.
+*[Affinity]: In Kubernetes, affinity is a set of rules that give hints to the scheduler about where to place pods.
+*[Aggregation Layer]: The aggregation layer lets you install additional Kubernetes-style APIs in your cluster.
+*[Annotation]: A key-value pair that is used to attach arbitrary non-identifying metadata to objects.
+*[API Group]: A set of related paths in Kubernetes API.
+*[API Server]: Also known as:kube-apiserver. The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.
+*[API-initiated eviction]: API-initiated eviction is the process by which you use the Eviction API to create an Eviction object that triggers graceful pod termination.
+*[App Container]: Application containers (or app containers) are the containers in a pod that are started after any init containers have completed.
+*[Application Architect]: A person responsible for the high-level design of an application.
+*[Application Developer]: A person who writes an application that runs in a Kubernetes cluster.
+*[Applications]: The layer where various containerized applications run.
+*[Approver]: A person who can review and approve Kubernetes code contributions.
+*[cAdvisor]: cAdvisor (Container Advisor) provides container users an understanding of the resource usage and performance characteristics of their running containers.
+*[Certificate]: A cryptographically secure file used to validate access to the Kubernetes cluster.
+*[cgroup]: A group (control group) of Linux processes with optional resource isolation, accounting and limits.
+*[CIDR]: CIDR (Classless Inter-Domain Routing) is a notation for describing blocks of IP addresses and is used heavily in various networking configurations.
+*[CLA]: (Contributor License Agreement) Terms under which a contributor grants a license to an open source project for their contributions.
+*[Cloud Controller Manager]: A Kubernetes control plane component that embeds cloud-specific control logic. The cloud controller manager lets you link your cluster into your cloud provider's API, and separates out the components that interact with that cloud platform from components that only interact with your cluster.
+*[Cloud Native Computing Foundation]: The Cloud Native Computing Foundation (CNCF) builds sustainable ecosystems and fosters a community around projects that orchestrate containers as part of a microservices architecture. Kubernetes is a CNCF project.
+*[Cloud Provider]: Also known as:Cloud Service Provider. A business or other organization that offers a cloud computing platform.
+*[Cluster Architect]: A person who designs infrastructure that involves one or more Kubernetes clusters.
+*[Cluster Infrastructure]: The infrastructure layer provides and maintains VMs, networking, security groups and others.
+*[Cluster Operations]: The work involved in managing a Kubernetes cluster: managing day-to-day operations, and co-ordinating upgrades.
+*[Cluster Operator]: A person who configures, controls, and monitors clusters.
+*[Cluster]: A set of worker machines, called nodes, that run containerized applications. Every cluster has at least one worker node.
+*[Code Contributor]: A person who develops and contributes code to the Kubernetes open source codebase.
+*[ConfigMap]: An API object used to store non-confidential data in key-value pairs. Pods can consume ConfigMaps as environment variables, command-line arguments, or as configuration files in a volume.
+*[Container Environment Variables]: Container environment variables are name=value pairs that provide useful information into containers running in a pod
+*[Container Lifecycle Hooks]: The lifecycle hooks expose events in the Container management lifecycle and let the user run code when the events occur.
+*[Container Network Interface]: Container network interface (CNI) plugins are a type of Network plugin that adheres to the appc/CNI specification.
+*[Container Runtime]: The container runtime is the software that is responsible for running containers.
+*[Container Runtime Interface]: The container runtime interface (CRI) is an API for container runtimes to integrate with kubelet on a node.
+*[Container Storage Interface]: The Container Storage Interface (CSI) defines a standard interface to expose storage systems to containers.
+*[Ephemeral Container]: A Container type that you can temporarily run inside a Pod.
+*[Init Container]: One or more initialization containers that must run to completion before any app containers run.
+*[Container]: A lightweight and portable executable image that contains software and all of its dependencies.
+*[containerd]: A container runtime with an emphasis on simplicity, robustness and portability
+*[Contributor]: Someone who donates code, documentation, or their time to help the Kubernetes project or community.
+*[Control Plane]: The container orchestration layer that exposes the API and interfaces to define, deploy, and manage the lifecycle of containers.
+*[Controller]: In Kubernetes, controllers are control loops that watch the state of your cluster, then make or request changes where needed. Each controller tries to move the current cluster state closer to the desired state.
+*[CRI-OA]: tool that lets you use OCI container runtimes with Kubernetes CRI.
+*[CronJob]: Manages a Job that runs on a periodic schedule.
+*[CustomResourceDefinition]: Custom code that defines a resource to add to your Kubernetes API server without building a complete custom server.
+*[DaemonSet]: Ensures a copy of a Pod is running across a set of nodes in a cluster.
+*[Data Plane]: The layer that provides capacity such as CPU, memory, network, and storage so that the containers can run and connect to a network.
+*[Deployment]: An API object that manages a replicated application, typically by running Pods with no local state.
+*[Developer]: (disambiguation) May refer to: Application Developer, Code Contributor, or Platform Developer.
+*[Device Plugin]: Device plugins run on worker Nodes and provide Pods with access to resources, such as local hardware, that require vendor-specific initialization or setup steps.
+*[Disruption]: Disruptions are events that lead to one or more Pods going out of service. A disruption has consequences for workload resources, such as Deployment, that rely on the affected Pods.
+*[Docker]: Docker (specifically, Docker Engine) is a software technology providing operating-system-level virtualization also known as containers.
+*[Dockershim]: The dockershim is a component of Kubernetes version 1.23 and earlier. It allows the kubelet to communicate with Docker Engine.
+*[Horizontal Pod Autoscaler]: Also known as:HPA. An API resource that automatically scales the number of Pod replicas based on targeted CPU utilization or custom metric targets.
+*[Downstream]: (disambiguation) May refer to: code in the Kubernetes ecosystem that depends upon the core Kubernetes codebase or a forked repo.
+*[Dynamic Volume Provisioning]: Allows users to request automatic creation of storage Volumes.
+*[Endpoints]: Endpoints track the IP addresses of Pods with matching selectors.
+*[EndpointSlice]: A way to group network endpoints together with Kubernetes resources.
+*[etcd]: Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.
+*[Event]: Each Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+*[Eviction]: Eviction is the process of terminating one or more Pods on Nodes.
+*[Extensions]: Extensions are software components that extend and deeply integrate with Kubernetes to support new types of hardware.
+*[Finalizer]: Finalizers are namespaced keys that tell Kubernetes to wait until specific conditions are met before it fully deletes resources marked for deletion. Finalizers alert controllers to clean up resources the deleted object owned.
+*[FlexVolume]: FlexVolume is a deprecated interface for creating out-of-tree volume plugins. The Container Storage Interface is a newer interface that addresses several problems with FlexVolume.
+*[Garbage Collection]: Garbage collection is a collective term for the various mechanisms Kubernetes uses to clean up cluster resources.
+*[Helm Chart]: A package of pre-configured Kubernetes resources that can be managed with the Helm tool.
+*[HostAliases]: A HostAliases is a mapping between the IP address and hostname to be injected into a Pod's hosts file.
+*[Image]: Stored instance of a Container that holds a set of software needed to run an application.
+*[Ingress]: An API object that manages external access to the services in a cluster, typically HTTP.
+*[Istio]: An open platform (not Kubernetes-specific) that provides a uniform way to integrate microservices, manage traffic flow, enforce policies, and aggregate telemetry data.
+*[Job]: A finite or batch task that runs to completion.
+*[Kops]: A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters.
+*[kube-controller-manager]: Control plane component that runs controller processes.
+*[kube-proxy]: kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.
+*[kube-scheduler]: Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.
+*[Kubeadm]: A tool for quickly installing Kubernetes and setting up a secure cluster.
+*[Kubectl]: Also known as:kubectl. Command line tool for communicating with a Kubernetes cluster's control plane, using the Kubernetes API.
+*[Kubelet]: An agent that runs on each node in the cluster. It makes sure that containers are running in a Pod.
+*[Kubernetes API]: The application that serves Kubernetes functionality through a RESTful interface and stores the state of the cluster.
+*[Label]: Tags objects with identifying attributes that are meaningful and relevant to users.
+*[LimitRange]: Provides constraints to limit resource consumption per Containers or Pods in a namespace.
+*[Logging]: Logs are the list of events that are logged by cluster or application.
+*[Managed Service]: A software offering maintained by a third-party provider.
+*[Manifest]: Specification of a Kubernetes API object in JSON or YAML format.
+*[Master]: Legacy term, used as synonym for nodes hosting the control plane.
+*[Member]: A continuously active contributor in the K8s community.
+*[Minikube]: A tool for running Kubernetes locally.
+*[Mirror Pod]: A pod object that a kubelet uses to represent a static pod
+*[Name]: A client-provided string that refers to an object in a resource URL, such as /api/v1/pods/some-name.
+*[Namespace]: An abstraction used by Kubernetes to support isolation of groups of resources within a single cluster.
+*[Network Policy]: A specification of how groups of Pods are allowed to communicate with each other and with other network endpoints.
+*[Node-pressure eviction]: Also known as:kubelet eviction. Node-pressure eviction is the process by which the kubelet proactively terminates pods to reclaim resources on nodes.
+*[Node]: A node is a worker machine in Kubernetes.
+*[Object]: An entity in the Kubernetes system. The Kubernetes API uses these entities to represent the state of your cluster.
+*[Operator Pattern]: The operator pattern is a system design that links a Controller to one or more custom resources.
+*[Persistent Volume Claim]: Claims storage resources defined in a PersistentVolume so that it can be mounted as a volume in a container.
+*[Persistent Volume]: An API object that represents a piece of storage in the cluster. Available as a general, pluggable resource that persists beyond the lifecycle of any individual Pod.
+*[Platform Developer]: A person who customizes the Kubernetes platform to fit the needs of their project.
+*[Pod Disruption Budget]: Also known as:PDB. A Pod Disruption Budget allows an application owner to create an object for a replicated application, that ensures a certain number or percentage of Pods with an assigned label will not be voluntarily evicted at any point in time.
+*[Pod Disruption]: Pod disruption is the process by which Pods on Nodes are terminated either voluntarily or involuntarily.
+*[Pod Lifecycle]: The sequence of states through which a Pod passes during its lifetime.
+*[Pod Priority]: Pod Priority indicates the importance of a Pod relative to other Pods.
+*[Pod Security Policy]: Enables fine-grained authorization of Pod creation and updates.
+*[Static Pod]: A pod managed directly by the kubelet daemon on a specific node,
+*[Pod]: The smallest and simplest Kubernetes object. A Pod represents a set of running containers on your cluster.
+*[Preemption]: Preemption logic in Kubernetes helps a pending Pod to find a suitable Node by evicting low priority Pods existing on that Node.
+*[Proxy]: In computing, a proxy is a server that acts as an intermediary for a remote service.
+*[QoS Class]: QoS Class (Quality of Service Class) provides a way for Kubernetes to classify Pods within the cluster into several classes and make decisions about scheduling and eviction.
+*[Quantity]: A whole-number representation of small or large numbers using SI suffixes.
+*[RBAC]: (Role-Based Access Control) Manages authorization decisions, allowing admins to dynamically configure access policies through the Kubernetes API.
+*[ReplicaSet]: A ReplicaSet (aims to) maintain a set of replica Pods running at any given time.
+*[ReplicationController]: A workload resource that manages a replicated application, ensuring that a specific number of instances of a Pod are running.
+*[Resource Quotas]: Provides constraints that limit aggregate resource consumption per Namespace.
+*[Reviewer]: A person who reviews code for quality and correctness on some part of the project.
+*[Secret]: Stores sensitive information, such as passwords, OAuth tokens, and ssh keys.
+*[Security Context]: The securityContext field defines privilege and access control settings for a Pod or container.
+*[Selector]: Allows users to filter a list of resources based on labels.
+*[Service Broker]: An endpoint for a set of Managed Services offered and maintained by a third-party.
+*[Service Catalog]: An extension API that enables applications running in Kubernetes clusters to easily use external managed software offerings, such as a datastore service offered by a cloud provider.
+*[Service]: An abstract way to expose an application running on a set of Pods as a network service.
+*[ServiceAccount]: Provides an identity for processes that run in a Pod.
+*[Shuffle-sharding]: A technique for assigning requests to queues that provides better isolation than hashing modulo the number of queues.
+*[SIG]: (special interest group) Community members who collectively manage an ongoing piece or aspect of the larger Kubernetes open source project.
+*[StatefulSet]: Manages the deployment and scaling of a set of Pods, and provides guarantees about the ordering and uniqueness of these Pods.
+*[Storage Class]: A StorageClass provides a way for administrators to describe different available storage types.
+*[sysctl]: sysctl is a semi-standardized interface for reading or changing the attributes of the running Unix kernel.
+*[Taint]: A core object consisting of three required properties: key, value, and effect. Taints prevent the scheduling of Pods on nodes or node groups.
+*[Toleration]: A core object consisting of three required properties: key, value, and effect. Tolerations enable the scheduling of pods on nodes or node groups that have matching taints.
+*[UID]: A Kubernetes systems-generated string to uniquely identify objects.
+*[Upstream]: (disambiguation) May refer to: core Kubernetes or the source repo from which a repo was forked.
+*[user namespace]: A kernel feature to emulate root. Used for "rootless containers".
+*[Volume Plugin]: A Volume Plugin enables integration of storage within a Pod.
+*[Volume]: A directory containing data, accessible to the containers in a Pod.
+*[WG]: (working group) Facilitates the discussion and/or implementation of a short-lived, narrow, or decoupled project for a committee, SIG, or cross-SIG effort.
+*[Workload]: A workload is an application running on Kubernetes. -->
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 Nhâm Chấn Vĩ
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["search.suggest", "search.highlight", "search.share", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.indexes", "toc.integrate", "navigation.top", "content.code.annotate", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.3a4b43e5.min.js"></script>
+      
+        <script src="../../../../../javascripts/shortcuts.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../../../../../javascripts/tablesort.js"></script>
+      
+    
+  </body>
+</html>
